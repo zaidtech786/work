@@ -1,0 +1,110 @@
+<div class="neuro-container">
+    <div class="floating-elements">
+        <div class="float-item item-1"></div>
+        <div class="float-item item-2"></div>
+        <div class="float-item item-3"></div>
+    </div>
+
+    <div class="users-card">
+        <div class="card-header">
+            <div class="logo">
+                <div class="logo-circle"></div>
+            </div>
+            <h1>Registered Users</h1>
+            <p>Manage user accounts</p>
+        </div>
+
+        <div class="table-container">
+            <div class="neuro-table-wrapper">
+                <table class="neuro-table">
+                    <thead>
+                        <tr>
+                            <th>Sr No</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Password</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let user of users; let i = index" [class.editing]="editingUserId === user._id">
+                            <td>{{ i + 1 }}</td>
+                            <td>
+                                <span *ngIf="editingUserId !== user._id">{{ user.name }}</span>
+                                <div *ngIf="editingUserId === user._id" class="edit-input-wrapper">
+                                    <input type="text" [(ngModel)]="editingUser.name" class="edit-input">
+                                </div>
+                            </td>
+                            <td>
+                                <span *ngIf="editingUserId !== user._id">{{ user.email }}</span>
+                                <div *ngIf="editingUserId === user._id" class="edit-input-wrapper">
+                                    <input type="email" [(ngModel)]="editingUser.email" class="edit-input">
+                                </div>
+                            </td>
+                            <td>
+                                <span *ngIf="editingUserId !== user._id">{{ user.phone }}</span>
+                                <div *ngIf="editingUserId === user._id" class="edit-input-wrapper">
+                                    <input type="tel" [(ngModel)]="editingUser.phone" class="edit-input">
+                                </div>
+                            </td>
+                            <td>
+                                <span *ngIf="editingUserId !== user._id" class="password-display">********</span>
+                                <div *ngIf="editingUserId === user._id" class="edit-input-wrapper">
+                                    <input type="password" [(ngModel)]="editingUser.password" class="edit-input">
+                                </div>
+                            </td>
+                            <td class="actions-cell">
+                                <div class="action-buttons" *ngIf="editingUserId !== user._id">
+                                    <button class="action-btn edit-btn" (click)="startEdit(user)">
+                                        <span class="btn-icon">✏️</span>
+                                    </button>
+                                    <button class="action-btn delete-btn" (click)="confirmDelete(user)">
+                                        <span class="btn-icon">🗑️</span>
+                                    </button>
+                                </div>
+                                <div class="action-buttons" *ngIf="editingUserId === user._id">
+                                    <button class="action-btn save-btn" (click)="confirmSave()">
+                                        <span class="btn-icon">✓</span>
+                                    </button>
+                                    <button class="action-btn cancel-btn" (click)="cancelEdit()">
+                                        <span class="btn-icon">✕</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr *ngIf="users.length === 0">
+                            <td colspan="6" class="no-data">No registered users found</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="table-footer">
+            <div class="user-count">
+                <span>Total Users: {{ users.length }}</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div class="modal-overlay" *ngIf="showConfirmModal" (click)="closeModal()">
+        <div class="confirmation-modal" (click)="$event.stopPropagation()">
+            <div class="modal-header">
+                <h3>{{ confirmationTitle }}</h3>
+            </div>
+            <div class="modal-content">
+                <p>{{ confirmationMessage }}</p>
+            </div>
+            <div class="modal-actions">
+                <button class="modal-btn cancel-modal-btn" (click)="cancelAction()">
+                    <span>No</span>
+                </button>
+                <button class="modal-btn confirm-modal-btn" (click)="confirmAction()">
+                    <span>Yes</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

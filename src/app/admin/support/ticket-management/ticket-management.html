@@ -1,0 +1,96 @@
+<div class="support-page">
+    <div class="stats-row" nz-row nzGutter="24">
+        <div nz-col nzSpan="6"><nz-card>
+                <div class="title">Processing</div>
+                <div class="value">{{stats.processing || 0}}</div>
+            </nz-card></div>
+        <div nz-col nzSpan="6"><nz-card>
+                <div class="title">Raised</div>
+                <div class="value">{{stats.raised || 0}}</div>
+            </nz-card></div>
+        <div nz-col nzSpan="6"><nz-card>
+                <div class="title">Resolved</div>
+                <div class="value">{{stats.resolved || 0}}</div>
+            </nz-card></div>
+        <div nz-col nzSpan="6"><nz-card>
+                <div class="title">Rejected</div>
+                <div class="value">{{stats.rejected || 0}}</div>
+            </nz-card></div>
+    </div>
+
+    <nz-card class="filter-card" style="margin-top:16px;">
+        <form [formGroup]="filterForm">
+            <div nz-row nzGutter="16">
+                <div nz-col nzSpan="6">
+                    <label>Filter By</label>
+                    <nz-select formControlName="filterBy" nzPlaceHolder="All">
+                        <nz-option *ngFor="let o of filterByOptions" [nzValue]="o.value"
+                            [nzLabel]="o.label"></nz-option>
+                    </nz-select>
+                </div>
+
+                <div nz-col nzSpan="6"
+                    *ngIf="filterForm.get('filterBy')!.value === 'all' || filterForm.get('filterBy')!.value === 'refId'">
+                    <label>Ref ID</label>
+                    <input nz-input placeholder="Enter Ref ID" formControlName="refId" />
+                </div>
+
+                <div nz-col nzSpan="6"
+                    *ngIf="filterForm.get('filterBy')!.value === 'all' || filterForm.get('filterBy')!.value === 'status'">
+                    <label>Status</label>
+                    <nz-select formControlName="status" nzPlaceHolder="Select status" nzAllowClear>
+                        <nz-option *ngFor="let s of statuses" [nzValue]="s" [nzLabel]="s"></nz-option>
+                    </nz-select>
+                </div>
+
+                <div nz-col nzSpan="6">
+                    <label>Date Range</label>
+                    <nz-range-picker formControlName="dateRange" style="width:100%"></nz-range-picker>
+                </div>
+
+                <div nz-col nzSpan="24" style="margin-top:12px;">
+                    <button nz-button nzType="primary" (click)="search(); $event.preventDefault()">Search</button>
+                    <button nz-button (click)="clear(); $event.preventDefault()"
+                        style="margin-left:8px;">Refresh</button>
+                </div>
+            </div>
+        </form>
+    </nz-card>
+
+    <nz-card style="margin-top:16px;">
+        <nz-table [nzData]="listOfData" [nzFrontPagination]="false" [nzLoading]="loading">
+            <thead>
+                <tr>
+                    <th>Sr.No</th>
+                    <th>Ticket Ref ID</th>
+                    <th>Category</th>
+                    <th>Sub Category</th>
+                    <th>Description</th>
+                    <th>Created Date</th>
+                    <th>Updated Date</th>
+                    <th>Status</th>
+                    <th>Remark</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of listOfData; let i = index">
+                    <td>{{i + 1}}</td>
+                    <td>{{item.refId}}</td>
+                    <td>{{item.category}}</td>
+                    <td>{{item.subCategory}}</td>
+                    <td>{{item.description}}</td>
+                    <td>{{item.createdAt | date:'dd/MM/yyyy'}}</td>
+                    <td>{{item.updatedAt | date:'dd/MM/yyyy'}}</td>
+                    <td>{{item.status}}</td>
+                    <td>{{item.remark}}</td>
+                    <td><a (click)="$event.preventDefault()">View</a></td>
+                </tr>
+
+                <tr *ngIf="!loading && listOfData.length === 0">
+                    <td colspan="10"><nz-empty></nz-empty></td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </nz-card>
+</div>

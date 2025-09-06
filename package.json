@@ -22,12 +22,18 @@
   },
   "private": true,
   "dependencies": {
+    "@angular/animations": "^20.2.3",
+    "@angular/cdk": "^20.2.1",
     "@angular/common": "^20.2.0",
     "@angular/compiler": "^20.2.0",
     "@angular/core": "^20.2.0",
     "@angular/forms": "^20.2.0",
+    "@angular/material": "^20.2.1",
     "@angular/platform-browser": "^20.2.0",
     "@angular/router": "^20.2.0",
+    "ng-zorro-antd": "^20.2.1",
+    "primeicons": "^7.0.0",
+    "primeng": "^20.0.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
@@ -43,6 +49,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "less": "^4.4.1",
     "typescript": "~5.9.2"
   }
 }

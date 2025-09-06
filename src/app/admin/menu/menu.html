@@ -1,0 +1,32 @@
+<div class="menu-container">
+    <div class="menu-left">
+        <button class="hamburger-btn" (click)="onToggleSidebar()">
+            <span class="hamburger-icon">☰</span>
+        </button>
+        <div class="breadcrumb">
+            <span class="breadcrumb-item">Dashboard</span>
+            <span class="breadcrumb-separator">›</span>
+            <span class="breadcrumb-item active">Home</span>
+        </div>
+    </div>
+
+    <div class="menu-center">
+        <div class="search-container">
+            <input type="text" placeholder="Search..." [(ngModel)]="searchQuery" class="search-input">
+            <div class="search-icon">🔍</div>
+        </div>
+    </div>
+
+    <div class="menu-right">
+        <button class="action-btn notification-btn">
+            <span class="btn-icon">🔔</span>
+        </button>
+        <button class="action-btn message-btn">
+            <span class="btn-icon">💬</span>
+        </button>
+        <div class="user-profile">
+            <img src="https://via.placeholder.com/40x40" alt="User" class="user-avatar">
+            <span class="user-name">Rishabh Chand</span>
+        </div>
+    </div>
+</div>

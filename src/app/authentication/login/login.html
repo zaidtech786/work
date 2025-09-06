@@ -1,0 +1,169 @@
+<div class="jodetx-login-root fintech-wrapper" role="application" aria-label="Login screen">
+    <div class="background-animations" aria-hidden="true">
+        <div class="blob blob--1"></div>
+        <div class="blob blob--2"></div>
+        <div class="blob blob--3"></div>
+    </div>
+
+    <div class="jodetx-inner">
+        <aside class="auth-image-panel" aria-hidden="true">
+            <div class="brand-top">
+                <span class="brand-top__logo">Jode<span class="brand-top__accent">Tx</span></span>
+            </div>
+
+            <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1600&auto=format&fit=crop"
+                alt="Fintech workspace" class="hero-img" />
+
+            <div class="image-overlay">
+                <div class="image-copy">
+                    <h3>Join millions of businesses</h3>
+                    <p>Secure payments, powerful dashboard and easy integration.</p>
+                </div>
+            </div>
+        </aside>
+
+        <main class="auth-card" [class.flipped]="isFlipped" role="main" aria-labelledby="login-heading">
+            <section class="card-face card-front" aria-hidden="{{isFlipped}}">
+                <div class="card-inner">
+                    <header class="card-header">
+                        <div class="logo-compact" aria-hidden="true"></div>
+                        <h1 id="login-heading">Login</h1>
+                        <p class="subtle">Enter your credentials to continue</p>
+                    </header>
+
+                    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="auth-form" novalidate>
+                        <div class="field">
+                            <label class="label" for="email">Email address</label>
+                            <div class="input-group">
+                                <input id="email" type="email" formControlName="email" placeholder="you@company.com"
+                                    [class.input-error]="email?.invalid && email?.touched"
+                                    [class.input-valid]="email?.valid && email?.touched" autocomplete="email" />
+                            </div>
+                            <div id="email-help" class="validation" *ngIf="email?.invalid && email?.touched">
+                                <span *ngIf="email?.errors?.['required']">Email is required</span>
+                                <span *ngIf="email?.errors?.['email']">Enter a valid email</span>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label" for="password">Password</label>
+                            <div class="input-group input-with-action">
+                                <input id="password" [type]="showPassword ? 'text' : 'password'"
+                                    formControlName="password" placeholder="Enter your password"
+                                    [class.input-error]="password?.invalid && password?.touched"
+                                    [class.input-valid]="password?.valid && password?.touched"
+                                    autocomplete="current-password" />
+                                <button type="button" class="action-btn" aria-label="Toggle password visibility"
+                                    (click)="togglePasswordVisibility()">
+                                    <span class="eye" [class.show]="showPassword"></span>
+                                </button>
+                            </div>
+                            <div id="password-help" class="validation" *ngIf="password?.invalid && password?.touched">
+                                <span *ngIf="password?.errors?.['required']">Password is required</span>
+                                <span *ngIf="password?.errors?.['minlength']">At least 6 characters required</span>
+                            </div>
+                        </div>
+
+                        <div class="row-between">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" formControlName="rememberMe" />
+                                <span class="checkbox-label">Remember me</span>
+                            </label>
+
+                            <a routerLink="/forgot-password" class="link">Forgot password?</a>
+                        </div>
+
+                        <div class="actions">
+                            <button type="submit" class="btn primary full" [disabled]="isLoading || loginForm.invalid"
+                                [attr.aria-busy]="isLoading">
+                                <ng-container *ngIf="!isLoading">Login</ng-container>
+                                <ng-container *ngIf="isLoading">Signing in...</ng-container>
+                            </button>
+                        </div>
+
+                        <div class="divider"><span>or continue with</span></div>
+
+                        <div class="social-grid">
+                            <button type="button" class="btn ghost" (click)="socialLogin('google')">G</button>
+                            <button type="button" class="btn ghost" (click)="socialLogin('apple')"></button>
+                            <button type="button" class="btn ghost" (click)="socialLogin('microsoft')">M</button>
+                        </div>
+                    </form>
+
+                    <footer class="card-footer">
+                        <span class="muted">Don't have an account?</span>
+                        <a class="link strong" href="#" (click)="flipCard($event)">Create one</a>
+                    </footer>
+                </div>
+            </section>
+
+            <section class="card-face card-back" aria-hidden="{{!isFlipped}}">
+                <div class="card-inner">
+                    <header class="card-header">
+                        <div class="logo-compact" aria-hidden="true"></div>
+                        <h1>Create account</h1>
+                        <p class="subtle">Fill in details to get started</p>
+                    </header>
+
+                    <form [formGroup]="signupForm" (ngSubmit)="onSignup()" class="auth-form" novalidate>
+                        <div class="field">
+                            <label class="label" for="fullName">Full name</label>
+                            <div class="input-group">
+                                <input id="fullName" type="text" formControlName="name" placeholder="Your full name" />
+                            </div>
+                            <div class="validation"
+                                *ngIf="signupForm.get('name')?.invalid && signupForm.get('name')?.touched">
+                                <span *ngIf="signupForm.get('name')?.errors?.['required']">Name is required</span>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label" for="signupEmail">Email address</label>
+                            <div class="input-group">
+                                <input id="signupEmail" type="email" formControlName="email"
+                                    placeholder="you@company.com" />
+                            </div>
+                            <div class="validation"
+                                *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched">
+                                <span *ngIf="signupForm.get('email')?.errors?.['required']">Email is required</span>
+                                <span *ngIf="signupForm.get('email')?.errors?.['email']">Enter a valid email</span>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label" for="signupPassword">Password</label>
+                            <div class="input-group input-with-action">
+                                <input id="signupPassword" [type]="showSignupPassword ? 'text' : 'password'"
+                                    formControlName="password" placeholder="Create a password" />
+                                <button type="button" class="action-btn" (click)="toggleSignupPassword()"
+                                    aria-label="Toggle">
+                                    <span class="eye" [class.show]="showSignupPassword"></span>
+                                </button>
+                            </div>
+                            <div class="validation"
+                                *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched">
+                                <span *ngIf="signupForm.get('password')?.errors?.['required']">Password is
+                                    required</span>
+                                <span *ngIf="signupForm.get('password')?.errors?.['minlength']">At least 6 characters
+                                    required</span>
+                            </div>
+                        </div>
+
+                        <div class="actions">
+                            <button type="submit" class="btn primary full"
+                                [disabled]="signupForm.invalid || isSigningUp">
+                                <ng-container *ngIf="!isSigningUp">Sign up</ng-container>
+                                <ng-container *ngIf="isSigningUp">Creating...</ng-container>
+                            </button>
+                        </div>
+                    </form>
+
+                    <footer class="card-footer">
+                        <span class="muted">Already have an account?</span>
+                        <a class="link strong" href="#" (click)="flipCard($event)">Login</a>
+                    </footer>
+                </div>
+            </section>
+        </main>
+    </div>
+</div>

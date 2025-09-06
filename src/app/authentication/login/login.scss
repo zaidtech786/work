@@ -1,0 +1,233 @@
+.jodetx-login-root {
+  /* minimal edits: keep your vars but ensure the right-card fits */
+  --card-min-height: clamp(520px, 66vh, 720px);
+  --card-max-width: 520px;
+
+  /* keep original design tokens (unchanged) */
+  --primary-50: #eff6ff; --primary-100: #dbeafe; --primary-200: #bfdbfe;
+  --primary-300: #93c5fd; --primary-400: #60a5fa; --primary-500: #3b82f6;
+  --primary-600: #2563eb; --primary-700: #1d4ed8; --primary-800: #1e40af;
+  --primary-900: #1e3a8a;
+  --accent-400: #06b6d4; --accent-500: #0891b2; --accent-600: #0e7490;
+  --success-500: #22c55e; --danger-500: #ef4444;
+  --neutral-50: #f8fafc; --neutral-100: #f1f5f9; --neutral-200: #e2e8f0;
+  --neutral-300: #cbd5e1; --neutral-400: #94a3b8; --neutral-500: #64748b;
+  --neutral-600: #475569; --neutral-700: #334155; --neutral-800: #1e293b;
+  --neutral-900: #0f172a;
+
+  --radius-sm: 8px; --radius-md: 12px; --radius-lg: 16px; --radius-xl: 20px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06); --shadow-md: 0 8px 20px rgba(0,0,0,0.08);
+  --shadow-lg: 0 12px 30px rgba(0,0,0,0.10); --shadow-card: 0 20px 40px rgba(0,0,0,0.12);
+
+  --font-sans: 'Inter', 'Roboto', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+
+  box-sizing: border-box;
+  width: 100%;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  html, body { overflow-x: hidden; }
+
+  &.fintech-wrapper {
+    min-height: 100vh !important;
+    padding: 18px 16px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: linear-gradient(135deg, var(--primary-50) 0%, var(--neutral-50) 50%, var(--primary-100) 100%) !important;
+    position: relative;
+    overflow-x: hidden !important;
+  }
+
+  .background-animations { position: absolute; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+
+  .blob { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.35; transform: translate3d(0,0,0); }
+  .blob--1 { width: 520px; height: 520px; left: 4%; top: 6%; background: radial-gradient(circle at 30% 30%, rgba(37,99,235,0.95), rgba(37,99,235,0.55) 40%, rgba(59,130,246,0.12) 70%); animation: blobMove1 22s ease-in-out infinite alternate; }
+  .blob--2 { width: 420px; height: 420px; right: 6%; bottom: 12%; background: radial-gradient(circle at 40% 40%, rgba(29,78,216,0.9), rgba(29,78,216,0.45) 40%, rgba(59,130,246,0.08) 80%); animation: blobMove2 26s ease-in-out infinite alternate; }
+  .blob--3 { width: 300px; height: 300px; left: 50%; top: -6%; transform: translateX(-50%); background: radial-gradient(circle at 20% 20%, rgba(59,130,246,0.85), rgba(59,130,246,0.35) 45%); animation: blobMove3 30s ease-in-out infinite alternate; }
+
+  @keyframes blobMove1 { 0%{transform:translate3d(0,0,0) scale(1);}50%{transform:translate3d(40px,-30px,0) scale(1.06);}100%{transform:translate3d(-20px,40px,0) scale(0.98);} }
+  @keyframes blobMove2 { 0%{transform:translate3d(0,0,0) scale(1);}50%{transform:translate3d(-30px,30px,0) scale(1.05);}100%{transform:translate3d(20px,-20px,0) scale(0.97);} }
+  @keyframes blobMove3 { 0%{transform:translate3d(0,0,0) scale(1);}50%{transform:translate3d(-20px,-60px,0) scale(1.08);}100%{transform:translate3d(30px,10px,0) scale(0.96);} }
+
+  .jodetx-inner {
+    width: 100%;
+    max-width: 1400px;
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: 1fr var(--card-max-width);
+    gap: 40px;
+    align-items: center;
+    justify-items: center;
+    padding: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* IMAGE PANEL — unchanged aside from safe max-height */
+  .auth-image-panel {
+    position: relative;
+    width: 100%;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    min-height: var(--card-min-height);
+    max-height: calc(100vh - 64px);
+    box-shadow: var(--shadow-card);
+    background: linear-gradient(135deg, var(--primary-100), var(--primary-50));
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+
+  .brand-top { position: absolute; top: 28px; left: 28px; z-index: 4; pointer-events: none; }
+  .brand-top__logo { font-weight: 900; font-size: 22px; color: var(--neutral-900); }
+  .brand-top__accent { color: var(--primary-600); }
+
+  .hero-img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; transition: transform .3s ease; }
+  .auth-image-panel:hover .hero-img { transform: scale(1.02); }
+
+  .image-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 28px 28px; display:flex; align-items:flex-end; box-sizing: border-box; background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.72) 100%); z-index: 3; }
+  .image-copy h3 { font-size: 28px; margin: 0 0 8px 0; color: #fff; font-weight: 800; }
+  .image-copy p { margin: 0; color: rgba(255,255,255,0.9); }
+
+  /* AUTH CARD — ensure card uses the card-min-height so the right box is tall enough */
+  .auth-card {
+    width: 100%;
+    max-width: var(--card-max-width);
+    border-radius: var(--radius-xl);
+    background: transparent;
+    box-sizing: border-box;
+    z-index: 2;
+    perspective: 1200px;
+    position: relative;
+
+    /* enforce the intended card height so the right box is tall enough and stable */
+    min-height: var(--card-min-height);
+    height: var(--card-min-height); /* key: fixed card height for desktop */
+    max-height: none;
+    display: flex;
+    align-items: center;
+  }
+
+  /* CARD FACE — allow content to be visible (not clipped) */
+  .card-face {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    transition: transform .6s cubic-bezier(.22,1,.36,1), opacity .28s ease;
+    box-sizing: border-box;
+    padding: 26px; /* slightly reduced padding to free vertical space */
+    border-radius: var(--radius-xl);
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.6);
+    box-shadow: var(--shadow-md);
+
+    min-height: 0;
+    overflow: visible; /* allow elements near the bottom to remain visible */
+  }
+
+  .card-front { transform: rotateY(0deg); opacity: 1; z-index: 2; }
+  .card-back  { transform: rotateY(180deg); opacity: 0; z-index: 1; }
+
+  .auth-card.flipped .card-front { transform: rotateY(-180deg); opacity: 0; z-index: 1; }
+  .auth-card.flipped .card-back  { transform: rotateY(0deg); opacity: 1; z-index: 2; }
+
+  /* CARD INNER — avoid space-between that allowed form to grow and push footer */
+  .card-inner {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* important */
+    min-height: 0;
+    gap: 8px;
+  }
+
+  .card-header { text-align: center; margin-bottom: 6px; }
+  .logo-compact { width: 60px; height: 60px; border-radius: var(--radius-lg); margin: 0 auto 6px; background: linear-gradient(135deg,var(--primary-500),var(--primary-700)); display:flex; align-items:center; justify-content:center; color:#fff; font-weight:900; font-size:22px; box-shadow: var(--shadow-lg); }
+  .card-header h1 { margin: 0; font-size: 21px; font-weight: 800; color: var(--neutral-900); }
+  .card-header .subtle { color: var(--neutral-500); font-size: 13px; margin-top: 6px; }
+
+  /* FORM — compact on desktop, do not grow and do not scroll */
+  .auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;            /* slightly smaller */
+    flex: 0 0 auto;      /* KEY: do not grow to push footer */
+    justify-content: flex-start;
+    min-height: 0;
+    overflow: visible;   /* NO internal scroll for desktop */
+    padding-right: 0;
+  }
+
+  /* INPUTS — reduce vertical footprint slightly so fields + button + footer fit */
+  .field { display:flex; flex-direction:column; gap:6px; }
+  .label { font-size: 14px; font-weight: 600; color: var(--neutral-700); margin: 0 0 4px 0; }
+
+  .input-group { position: relative; width: 100%; display:block; }
+  .input-group input {
+    width: 100%;
+    padding: 10px 12px;   /* reduced */
+    border-radius: var(--radius-md);
+    border: 2px solid var(--neutral-200);
+    background: var(--neutral-50);
+    font-size: 15px;
+    color: var(--neutral-900);
+    box-shadow: var(--shadow-sm);
+    transition: all .12s ease;
+    box-sizing: border-box;
+    min-height: 44px;     /* reduced */
+  }
+  .input-with-action input { padding-right: 50px; }
+
+  .input-group input:focus { outline: none; border-color: var(--primary-600); box-shadow: 0 6px 20px rgba(37,99,235,0.08); transform: translateY(-0.5px); }
+
+  .validation { color: var(--danger-500); font-size: 13px; margin-top: 6px; min-height: 18px; display: block; }
+
+  .input-with-action .action-btn { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); border: none; background: var(--neutral-100); padding: 6px; border-radius: var(--radius-sm); width: 34px; height: 34px; display:flex; align-items:center; justify-content:center; }
+
+  .row-between { display:flex; justify-content:space-between; align-items:center; margin-top: 6px; }
+
+  /* ACTIONS — slightly smaller height but still prominent */
+  .actions { margin-top: 8px; }
+  .btn { display:inline-flex; align-items:center; justify-content:center; gap:10px; padding:10px 14px; border-radius: var(--radius-md); font-weight:700; font-size:14px; cursor:pointer; min-height:44px; }
+  .btn.full { width:100%; }
+  .btn.primary { background: linear-gradient(135deg,var(--primary-500),var(--primary-600)); color:#fff; box-shadow: 0 10px 26px rgba(37,99,235,0.14); }
+
+  .divider { text-align:center; color: var(--neutral-400); font-size: 13px; margin: 10px 0; }
+  .social-grid { display:flex; gap:10px; justify-content:center; margin-top: 6px; }
+
+  /* Footer — reduced spacing so it's visible */
+  .card-footer { display:flex; gap:8px; justify-content:center; align-items:center; margin-top: 8px; }
+
+  /* Focus / autofill */
+  :focus { outline: none; }
+  input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 1000px var(--panel, #fff) inset !important;
+    box-shadow: 0 0 0 1000px var(--panel, #fff) inset !important;
+    -webkit-text-fill-color: var(--neutral-900) !important;
+    caret-color: var(--neutral-900) !important;
+  }
+
+  /* MEDIA — responsive: on smaller screens re-enable internal scroll within the form */
+  @media (max-width: 1000px) {
+    .jodetx-inner { grid-template-columns: 1fr; gap: 28px; padding-inline: 12px; }
+    .auth-image-panel { min-height: clamp(360px, 46vh, 520px); max-height: calc(100vh - 64px); }
+    .auth-card { max-width: 720px; min-height: clamp(420px, 68vh, 640px); height: auto; max-height: calc(100vh - 48px); }
+    .card-face { padding: 24px; position: relative; overflow: visible; }
+    .auth-form { flex: 1 1 auto; overflow-y: auto; padding-right: 8px; -webkit-overflow-scrolling: touch; }
+  }
+
+  @media (max-width: 520px) {
+    .jodetx-inner { gap: 18px; padding-inline: 12px; }
+    .auth-image-panel { display: none; }
+    .auth-card { margin-inline: 8px; padding: 12px; border-radius: var(--radius-lg); width: calc(100% - 16px); min-height: auto; max-height: none; height: auto; }
+    .card-face { padding: 18px; position: relative; }
+    .logo-compact { width: 64px; height: 64px; font-size: 20px; }
+    .card-header h1 { font-size: 20px; }
+    .input-group input { padding: 12px 14px; min-height: 48px; }
+    .btn { padding: 12px 14px; min-height: 48px; }
+    .auth-form { overflow-y: auto; }
+  }
+} 
