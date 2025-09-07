@@ -9,6 +9,7 @@ import { RegisterUserComponent } from './authentication/register-user/register-u
 export const routes: Routes = [
  
   { path: 'login', component: LoginComponent },
+  { path: '',  component: LoginComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'register-user', component: RegisterUserComponent },
   {
